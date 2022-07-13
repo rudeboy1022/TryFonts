@@ -1,0 +1,425 @@
+/////App/////////////////////////////////////////////////////////////////////////// 
+const containerStyle = css`
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(240, 240, 242);
+  `
+
+  const inputAreaStyle = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    margin-top: 5vh;
+  `
+
+  const textInputStyle = css`
+  width: 50%;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 5vh;
+`
+
+  const submitInputStyle = css`
+    width: 70px;
+    height: 40px;
+    border-radius: 40px;
+    font-weight: 800;
+    background-color: lightblue;
+    margin-top: 10px;
+    box-shadow: 0 2px black;
+      &:active{
+        transform: translateY(2px);
+        box-shadow: none;
+      }
+  `
+
+
+  const h2Style = css`
+    font-weight: 800;
+    text-align: center;
+  `
+
+  const fontsContainerStyle = css`
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 5% 0 5% 0;
+      ${mq[0]}{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin: 5% 0 5% 0;
+      }
+  `
+  
+
+  const descriptionArea = css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    background-image: url(laptop-3214756.png);
+    background-repeat: no-repeat;
+    background-color:rgba(255,255,255,0.6);
+    background-blend-mode:lighten;
+    background-size: cover;
+
+      #scrollPart{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        bottom: 20px;
+      }
+  `
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////Header////////////////////////////////////////////////////////////////////////////////////////////
+
+    const headerStyle = css`
+        width: 100%;
+        height: 5vh;
+        background-color: rgba(207, 243, 236, 1);
+        margin: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10000;
+    `
+
+    const h1style = css`
+        color: black;
+        font-weight: 900;
+        margin-left: 5%;
+    `
+
+    const h2style = css({
+        marginRight: "5%"
+    })
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///Footer////////////////////////////////////////////////////////////////////////////////////////////////
+    const footerStyle = css`
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 20vh;
+        background-color: grey;
+    `
+
+    const spanStyle = css`
+        color: white;
+    `
+
+    const logoBackGroundStyle = css`
+        padding: 20px;
+        background: linear-gradient(45deg, blue, black);
+        margin-top: 30px;
+        border-radius: 4px;
+    `
+    const logoStyle = css`
+        color: white;
+        font-size: 20px;
+        font-weight:900;
+        text-shadow: 2px 2px 3px red, 0 0 1em green, 0 0 0.2em yellow;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+///SansSerif/////////////////////////////////////////////////////////////////////////////////////////
+    const sansSerifContainerStyle = css`
+        width: 40%;
+        height: 100%;
+        border-radius: 5px;
+    `
+
+    const h2TitleStyle = css`
+        position: absolute;
+
+    `
+
+    const sansSerifBackGroundContainerStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: inherit;
+        padding: 40%;
+        border: 1px solid black;
+    `
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+    `
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+///SansSerifText///////////////////////////////////////////////////////////////////////////////////////
+    const sansSerifTextStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+        left: 0;
+    `
+
+    const textStyle = css`
+        position: absolute;
+        left: auto;
+        top: auto;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///Serif//////////////////////////////////////////////////////////////////////////////////////////////////////
+    const serifContainerStyle = css`
+        width: 40%;
+        height: 100%;
+        border-radius: 5px;
+    `
+
+    const h2TitleStyle = css`
+        position: absolute;
+
+    `
+
+    const serifBackGroundContainerStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: inherit;
+        padding: 40%;
+        border: 1px solid black;
+    `
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+        float: left;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///SerifText/////////////////////////////////////////////////////////////////////////////////////////////////
+    const serifTextStyle = css`
+    	display: flex;
+    	justify-content: center;
+   	align-items: center;
+    `
+
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+    `
+
+    const textStyle = css`
+        position: absolute;
+        left: auto;
+        top: auto;
+    `
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///monospace//////////////////////////////////////////////////////////////////////////////////////////////////
+    const monospaceContainerStyle = css`
+        width: 40%;
+        height: 100%;
+        border-radius: 5px;
+    `
+
+    const h2TitleStyle = css`
+        position: absolute;
+
+    `
+
+    const monospaceBackGroundContainerStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: inherit;
+        padding: 40%;
+        border: 1px solid black;
+    `
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+        float: left;
+    `
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///monospaceText////////////////////////////////////////////////////////////////////////////////////////////////
+    const monospaceTextStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+    `
+
+    const textStyle = css`
+        position: absolute;
+        left: auto;
+        top: auto;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///cursive///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const cursiveContainerStyle = css`
+        width: 40%;
+        height: 100%;
+        border-radius: 5px;
+    `
+
+    const h2TitleStyle = css`
+        position: absolute;
+
+    `
+
+    const cursiveBackGroundContainerStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: inherit;
+        padding: 40%;
+        border: 1px solid black;
+    `
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+        float: left;
+    `
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///cursiveText////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const cursiveTextStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+    `
+
+    const textStyle = css`
+        position: absolute;
+        left: auto;
+        top: auto;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///fantasy///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const fantasyContainerStyle = css`
+        width: 40%;
+        height: 100%;
+        border-radius: 5px;
+    `
+
+    const h2TitleStyle = css`
+        position: absolute;
+
+    `
+
+    const fantasyBackGroundContainerStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: inherit;
+        padding: 40%;
+        border: 1px solid black;
+    `
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+        float: left;
+    `
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///fantasyText////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   const fantasyTextStyle = css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    `
+
+    const sketchPickerDefaultStyle = css`
+        display: none;
+    `
+
+    const sketchPickerActiveStyle = css`
+        position: absolute;
+    `
+
+    const textStyle = css`
+        position: absolute;
+        left: auto;
+        top: auto;
+    `
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////styles for pc//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+export const textColorPickerStyle = css`
+    width: 20%;
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    line-height: 1.2;
+`
+
+export const backGroundColorPickerStyle = css`
+    width: 20%;
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    line-height: 1.2;
+`
+
+export const fontSizeInputStyle = css`
+    width: 20%;
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    line-height: 1.2;
+`
+
+export const fontWeightInputStyle = css`
+    width: 20%;
+    padding: 30px 0;
+    text-align: center;
+    border-radius: 15px;
+    line-height: 1.2;
+`
+export const buttonContainer = css`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+`
