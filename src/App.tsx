@@ -157,6 +157,7 @@ export const App: FC = () => {
         <Cursive />
         <Fantasy />
       </div>
+      <a href="#top">Back top top</a>
       <Footer />
     </div>
   )
