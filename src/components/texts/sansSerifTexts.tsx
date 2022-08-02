@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect} from 'react';
 import { useState,useCallback, FC } from 'react';
 import { TextsContext } from '../../Provider/TextContextsProvider';
 import {SketchPicker, ColorResult} from "react-color";
@@ -31,6 +31,14 @@ export const SansSerifTexts: FC<TextsProps>=  (props) => {
     //backgroundの上辺の値のprops///////////////////
     const clientTopPx = props.clientTopPx;
 
+    const setTextColorHex = props.setTextColorHex;
+
+    useEffect(()=>{
+        if(setTextColorHex){
+            setTextColorHex(textColor);
+        }
+    });
+
     //cssエリア/////////////////////////////////////
     const sansSerifTextStyle = css`
         display: flex;
@@ -55,12 +63,16 @@ export const SansSerifTexts: FC<TextsProps>=  (props) => {
         position: absolute;
         left: auto;
         top: auto;
+        color: ${textColor?.hex};
+        font-family: sans-serif;
+        white-space: pre-wrap;
+        text-align: center;
     `
     //////////////////////////////////////////////////////////////////////////////////
 
     return(
         <div id='sansSerifText' css={sansSerifTextStyle}>
-            <p style={{fontFamily: "sans-serif", color: textColor?.hex, fontSize: fontSize, fontWeight: fontWeight}} className={"sansSerif"} css={textStyle}>{text}</p>
+            <p style={{fontSize: fontSize, fontWeight: fontWeight}} className={"sansSerif"} css={textStyle}>{text}</p>
             <SketchPicker width="150px" onChange={updateTextColor} color = {rgb} css={isSansSerifActive? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
         </div>
     )

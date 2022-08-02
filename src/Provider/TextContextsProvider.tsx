@@ -14,7 +14,7 @@ export const TextsContext = createContext({} as {
 export const TextsContextsProvider= (props: textContextProps) =>{
 
     const {children}: textContextProps = props;
-    const [text,setText] = useState<string>("input")
+    const [text,setText] = useState<string>(`input`)
     return(
         <TextsContext.Provider value={{text,setText}}>{children}</TextsContext.Provider>
     )

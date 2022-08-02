@@ -1,10 +1,12 @@
 import React, { useState,useCallback, FC, ChangeEvent, useRef, useEffect } from 'react';
-import {SketchPicker, ColorResult} from "react-color";
+import {SketchPicker, ColorResult, ColorChangeHandler} from "react-color";
 import { SansSerifTexts } from './texts/sansSerifTexts';
 import { adjustButtonsStyle, buttonContainer, mq} from '../style/style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react"
+import { css } from "@emotion/react";
 
 export const SansSerif: FC=  () => {
 
@@ -13,7 +15,7 @@ export const SansSerif: FC=  () => {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //font-sizeのinputへの入力を処理/////////////////////////////////////////////////////////////////////////////////////////
-    const handleFontSizeValue = (e: ChangeEvent<HTMLInputElement>) => setInputFontSizeValue(parseInt(e.target.value));
+    const handleFontSizeValue = (e: ChangeEvent<HTMLInputElement>) => setInputFontSizeValue(Number(e.target.value));
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //font-weightの入力値を保持////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,13 +23,14 @@ export const SansSerif: FC=  () => {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //font-weightのinputへの入力を処理/////////////////////////////////////////////////////////////////////////////////////////
-    const handleFontWeightValue = (e: ChangeEvent<HTMLInputElement>) => setInputFontWeightValue(parseInt(e.target.value));
+    const handleFontWeightValue = (e: ChangeEvent<HTMLInputElement>) => setInputFontWeightValue(Number(e.target.value));
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
      //color-pickerでのbackgroundに関する値を保持//////////////////////////////////////////////////////////////////////////////
     const [backgroundColor, setBackgroundColor] = useState<ColorResult>();
     const {rgb} = backgroundColor || {};
-    const updateBackgroundColor = useCallback((backgroundColor: ColorResult) => setBackgroundColor(backgroundColor), []);
+    const updateBackgroundColor = useCallback((backgroundColor: ColorResult) => setBackgroundColor(backgroundColor), [backgroundColor]);
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //color-pickerの表示非表示の値を保持////////////////////////////////////////////////////////////////////////////////////////
@@ -46,18 +49,26 @@ export const SansSerif: FC=  () => {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //backgroundの上辺の高さの値を取得、保持////////////////////////////////////////////////////////////////////////////////////
+    //backgroundの上辺の高さ,右辺の位置の値を取得、保持////////////////////////////////////////////////////////////////////////////////////
     const [clientTop, setClientTop] = useState<number>();
+    const [clientRight, setClientRight] = useState<number>();
     
     const divRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        const clientTopValue = divRef.current?.getBoundingClientRect().top;
+        const clientTopValue: number | undefined = divRef.current?.getBoundingClientRect().top;
         setClientTop(clientTopValue);
+        const clientRightValue: number | undefined = divRef.current?.getBoundingClientRect().x;
+        setClientRight(clientRightValue);
     }, []);
 
     const clientTopPx = `top: ${clientTop}px`;
+    const clientRightPx = `right: ${clientRight}px`;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    const [textColorHex, setTextColorHex] = useState<ColorResult | undefined>();
+    
+    const copyWord = `color: ${textColorHex?.hex}; \n background: ${backgroundColor?.hex};`;
+    
     //cssエリア////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const sansSerifContainerStyle = css`
         width: 90%;
@@ -70,6 +81,23 @@ export const SansSerif: FC=  () => {
         }
     `
 
+    const clipboardCopyButtonStyle = css`
+        position: absolute;
+        ${clientRightPx};
+        ${clientTopPx};
+        z-index: 1000;
+        border: none;
+        background-color: #a8b3bf;
+        padding: 0 2px;
+        border-radius: 5px;
+        opacity: 0;
+        transition-duration: 0.3s;
+        &:active{
+            filter: brightness(60%);
+            transition-duration: 0;
+        }
+    `
+
     const sansSerifBackGroundContainerStyle = css`
         display: flex;
         justify-content: center;
@@ -77,7 +105,15 @@ export const SansSerif: FC=  () => {
         position: inherit;
         padding: 40%;
         border: 1px solid black;
+        background-color: ${backgroundColor?.hex};
+        animation: 0.3s;
+        &:hover{
+            button{
+                opacity: 1;
+            }
+        }
     `
+
     const sketchPickerDefaultStyle = css`
         display: none;
     `
@@ -90,13 +126,17 @@ export const SansSerif: FC=  () => {
             margin-right: 10%;
         }
     `
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return(
         <div id='sansSerifContainer' css = {sansSerifContainerStyle}>
             <h2>Sans-Serif</h2>
-            <div className='sansSerifBackGroundContainer' style={{backgroundColor: backgroundColor?.hex}} css={sansSerifBackGroundContainerStyle} ref={divRef}>
-                <SansSerifTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle={isSansSerifTextToggle} clientTopPx={clientTopPx} />
+            <div className='sansSerifBackGroundContainer' css={sansSerifBackGroundContainerStyle} ref={divRef}>
+                <SansSerifTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle={isSansSerifTextToggle} clientTopPx={clientTopPx} setTextColorHex = {setTextColorHex}/>
+                <button onClick={()=>{navigator.clipboard.writeText(copyWord)}} css={clipboardCopyButtonStyle}>
+                    <FontAwesomeIcon icon={faCopy} size="2x"/>
+                </button>
             </div>
             <SketchPicker width='150px' onChange={updateBackgroundColor} color = {rgb} css={isSansSerifBackgroundToggle? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
             <div id='buttonContainer' css={buttonContainer}>

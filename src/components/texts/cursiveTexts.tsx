@@ -1,5 +1,5 @@
 import React, { useContext, ChangeEvent } from 'react';
-import { useState,useCallback, FC } from 'react';
+import { useState,useCallback,useEffect, FC } from 'react';
 import { TextsContext } from '../../Provider/TextContextsProvider';
 import {SketchPicker, ColorResult} from "react-color";
 import type { TextsProps } from "../../types/TextsProps"
@@ -20,6 +20,13 @@ export const CursiveTexts: FC<TextsProps> = (props) => {
     const fontWeight = props.fontWeight;
     const isCursiveTextActive = props.toggle;
     const clientTopPx = props.clientTopPx;
+    const setTextColorHex = props.setTextColorHex;
+
+    useEffect(()=>{
+        if(setTextColorHex){
+            setTextColorHex(textColor);
+        }
+    })
 
     const cursiveTextStyle = css`
         display: flex;
@@ -44,11 +51,15 @@ export const CursiveTexts: FC<TextsProps> = (props) => {
         position: absolute;
         left: auto;
         top: auto;
+        color: ${textColor?.hex};
+        font-family: cursive;
+        white-space: pre-wrap;
+        text-align: center;
     `
 
     return(
         <div id='cursiveText' css={cursiveTextStyle}>
-            <p style={{fontFamily: "cursive", color: textColor?.hex, fontSize: fontSize, fontWeight: fontWeight}} css={textStyle}>{text}</p>
+            <p style={{fontSize: fontSize, fontWeight: fontWeight}} css={textStyle}>{text}</p>
             <SketchPicker width='150px' onChange={updateTextColor} color = {rgb} css={isCursiveTextActive? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
         </div>
     )

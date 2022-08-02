@@ -1,5 +1,5 @@
 import React, { useContext} from 'react';
-import { useState,useCallback, FC } from 'react';
+import { useState,useCallback,useEffect, FC } from 'react';
 import { TextsContext } from '../../Provider/TextContextsProvider';
 import {SketchPicker, ColorResult} from "react-color";
 import type { TextsProps } from '../../types/TextsProps';
@@ -22,6 +22,13 @@ export const FantasyTexts: FC<TextsProps>=  (props) => {
     const fontWeight = props.fontWeight;
     const isFantasyTextActive = props.toggle;
     const clientTopPx = props.clientTopPx;
+    const setTextColorHex = props.setTextColorHex;
+
+    useEffect(()=>{
+        if(setTextColorHex){
+            setTextColorHex(textColor);
+        }
+    })
 
     const fantasyTextStyle = css`
         display: flex;
@@ -46,11 +53,15 @@ export const FantasyTexts: FC<TextsProps>=  (props) => {
         position: absolute;
         left: auto;
         top: auto;
+        color: ${textColor?.hex};
+        font-family: fantasy;
+        white-space: pre-wrap;
+        text-align:center;
     `
 
     return(
         <div id='fantasyText' css={fantasyTextStyle}>
-            <p style={{fontFamily: "fantasy", color: textColor?.hex, fontSize: fontSize, fontWeight: fontWeight}} css={textStyle}>{text}</p>
+            <p style={{fontSize: fontSize, fontWeight: fontWeight}} css={textStyle}>{text}</p>
             <SketchPicker width='150px' onChange={updateTextColor} color = {rgb} css={isFantasyTextActive? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
         </div>
     )

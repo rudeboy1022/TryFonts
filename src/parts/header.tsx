@@ -30,13 +30,13 @@ export const Header = () => {
             font-size: 100%;
         }
         ${mq[1]}{
-            font-size: 30px;
+            font-size: 20px;
         }
         ${mq[2]}{
-            font-size: 35px;
+            font-size: 25px;
         }
         ${mq[3]}{
-            font-size: 40px;
+            font-size: 35px;
         }
     `
 

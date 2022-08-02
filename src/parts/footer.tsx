@@ -13,7 +13,7 @@ export const Footer = () => {
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 20vh;
+        height: 15vh;
         background-color: grey;
     `
 
@@ -23,7 +23,7 @@ export const Footer = () => {
     `
 
     const logoBackGroundStyle = css`
-        padding: 20px;
+        padding: 10px 20px;
         background: linear-gradient(45deg, blue, black);
         border-radius: 4px;
     `
@@ -36,9 +36,9 @@ export const Footer = () => {
 
     return(
         <footer css = {footerStyle}>
-            <span css={spanStyle}>Copyright © 2022 RudeBoy1022. All rights reserved.</span>
+            <span css={spanStyle}>Copyright © 2022 NONAME. All rights reserved.</span>
             <div css={logoBackGroundStyle}>
-                <span css={logoStyle}>RUDEBOY1022</span>
+                <span css={logoStyle}>NONAME</span>
             </div>
         </footer>
     )

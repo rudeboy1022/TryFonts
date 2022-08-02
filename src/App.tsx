@@ -8,7 +8,7 @@ import { Cursive } from "./components/cursive";
 import { Fantasy } from "./components/fantasy";
 import { TextsContext } from "./Provider/TextContextsProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCircleUp } from "@fortawesome/free-solid-svg-icons";
 import { mq } from "./style/style";
 
 
@@ -24,11 +24,15 @@ export const App: FC = () => {
   //////////////////////////////////////////////////
 
   //文字の入力を処理/////////////////////////////////
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputValue(e.target.value);
+  };
 
   //入力された文字の受け取りの処理////////////////////
   const onClickSubmit = () => {
-    setText(inputValue);
+    const typedTextAry = inputValue.split("\n");
+    const modefiedText = typedTextAry.join(`\n`);
+    setText(modefiedText);
     setInputValue("");
   }
   /////////////////////////////////////////////////
@@ -51,13 +55,21 @@ export const App: FC = () => {
     margin-top: 5vh;
   `
 
+  const inputLabelStyle = css`
+    font-weight: 800;
+    text-align: center;
+    padding-top: 7vh;
+    width: 100%;
+  `
+
   const textInputStyle = css`
-  width: 75%;
-  text-align: center;
-  border: 2px solid black;
-  border-radius: 5px;
-  height: 5vh;
-`
+    resize: none;
+    width: 75%;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 5vh;
+  `
 
   const submitInputStyle = css`
     width: 70px;
@@ -73,11 +85,6 @@ export const App: FC = () => {
       }
   `
 
-
-  const inputH2Style = css`
-    font-weight: 800;
-    text-align: center;
-  `
   const fontsContainerStyle = css`
     display: flex;
     align-items: center;
@@ -98,13 +105,15 @@ export const App: FC = () => {
     background-size: cover;
     margin: 0;
 
-      #scrollPart{
+      #scrollDownPart{
         position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         bottom: 20px;
+        text-decoration: none;
+        color: black;
       }
   `
 
@@ -132,6 +141,21 @@ export const App: FC = () => {
       font-size: 15px;
     }
   `
+
+  const backToTopStyle = css`
+    position: fixed;
+    text-decoration: none;
+    color: #c61afd;
+    ${mq[0]}{
+      right: 0;
+      bottom: 2%;
+    }
+    ${mq[1]}{
+      right: 3%;
+      bottom: 2%;
+      font-size: 3em;
+    }
+  `
   //////////////////////////////////////////////////////////////////////
 
   return(
@@ -140,14 +164,15 @@ export const App: FC = () => {
       <div id="descriptionArea" css={descriptionArea}>
         <h2 css={descriptionH2Style}>Try some font-family, font-color and background-color</h2>
         <p css={descriptionPStyle}>You can change color, background-color, font-size(px), font-weight</p>
-        <div id="scrollPart">
+        <a id="scrollDownPart" href="#inputArea">
           <span><FontAwesomeIcon icon={faCaretDown} size="5x"/></span>
           <span>scroll</span>
-        </div>
+        </a>
       </div>
-      <div className="inputArea" css = {inputAreaStyle}>
-        <h2 css = {inputH2Style}>ここに入力<br/>↓</h2>
-        <input type='text' value={inputValue} onChange={handleChange} css = {textInputStyle}/>
+      <div id="inputArea" className="inputArea" css = {inputAreaStyle}>
+        <label css = {inputLabelStyle}>ここに入力<br/>↓<br/>
+          <textarea  value={inputValue} onChange={handleChange} css = {textInputStyle}/>
+        </label>
         <input type='submit' onClick={onClickSubmit} value="admit" css = {submitInputStyle} />
       </div>
       <div id="fontsContainer" css = {fontsContainerStyle}>
@@ -157,7 +182,9 @@ export const App: FC = () => {
         <Cursive />
         <Fantasy />
       </div>
-      <a href="#top">Back top top</a>
+      <a href="#top" css={backToTopStyle}>
+        <FontAwesomeIcon icon={faCircleUp}/>
+      </a>
       <Footer />
     </div>
   )
