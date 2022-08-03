@@ -7,7 +7,6 @@ import { faCopy, faAlignCenter, faAlignLeft, faAlignRight } from '@fortawesome/f
 
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { transform } from 'typescript';
 
 export const SansSerif: FC=  () => {
 
@@ -72,6 +71,7 @@ export const SansSerif: FC=  () => {
     const copyWord = `color: ${textColorHex?.hex}; \n background: ${backgroundColor?.hex};`;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //textAlignの値を取得保持///////////////////////////////////////////////////////////////////////////////////////////////////
     const [textAlignValue, setTextAlignValue] = useState<string>("center");
 
     const handleTextAlignLeftButtonCkick = () => {
