@@ -7,4 +7,5 @@ export type TextsProps = {
     toggle?: boolean;
     clientTopPx? : string | undefined;
     setTextColorHex? : Dispatch<SetStateAction<ColorResult|undefined>>;
+    textAlignValue? : string;
 }

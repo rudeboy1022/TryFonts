@@ -23,6 +23,7 @@ export const SerifTexts: FC<TextsProps> = (props) => {
     const isSerifActive = props.toggle;
     const clientTopPx = props.clientTopPx;
     const setTextColorHex = props.setTextColorHex;
+    const textAlignValue = props.textAlignValue;
 
     useEffect(()=>{
         if(setTextColorHex){
@@ -56,7 +57,7 @@ export const SerifTexts: FC<TextsProps> = (props) => {
         color: ${textColor?.hex};
         font-family: serif;
         white-space: pre-wrap;
-        text-align: center;
+        text-align: ${textAlignValue};
     `
 
     return(

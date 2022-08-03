@@ -4,7 +4,7 @@ import {SketchPicker, ColorResult} from "react-color";
 import { CursiveTexts } from './texts/cursiveTexts';
 import { adjustButtonsStyle, buttonContainer, mq} from '../style/style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faAlignCenter, faAlignLeft, faAlignRight } from '@fortawesome/free-solid-svg-icons';
 
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
@@ -52,6 +52,20 @@ export const Cursive: FC = () => {
     const [textColorHex, setTextColorHex] = useState<ColorResult | undefined>();
     
     const copyWord = `color: ${textColorHex?.hex}; \n background: ${backgroundColor?.hex};`;
+
+    const [textAlignValue, setTextAlignValue] = useState<string>("center");
+
+    const handleTextAlignLeftButtonCkick = () => {
+        setTextAlignValue("left");
+    };
+
+    const handleTextAlignCenterButtonClick = () => {
+        setTextAlignValue("center");
+    };
+
+    const handleTextAlignRightButtonClick = () => {
+        setTextAlignValue("right");
+    };
 
     const cursiveContainerStyle = css`
         width: 90%;
@@ -109,14 +123,41 @@ export const Cursive: FC = () => {
         display: none;
     `
 
+    const alignButtonsStyle = css`
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: ${clientRight}px;
+        top: ${clientTop}px;
+        button{
+            margin-top: 5%;
+            opacity: 0;
+            transition-duration: 0.3s;
+            ${mq[2]}{
+                font-size: 1.5em;
+            }
+        }
+    `
+
     return(
         <div id='cursiveContainerStyle' css = {cursiveContainerStyle}>
             <h2>Cursive</h2>
             <div className='cursiveBackGroundContainer' css={cursiveBackGroundContainerStyle} ref={divRef}>
-                <CursiveTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle = {isCursiveTextToggle} clientTopPx={clientTopPx} setTextColorHex={setTextColorHex}/>
+                <CursiveTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle = {isCursiveTextToggle} clientTopPx={clientTopPx} setTextColorHex={setTextColorHex} textAlignValue={textAlignValue}/>
                 <button onClick={()=>{navigator.clipboard.writeText(copyWord)}} css={clipboardCopyButtonStyle}>
                     <FontAwesomeIcon icon={faCopy} size="2x"/>
                 </button>
+                <div id='alignButtons' css={alignButtonsStyle}>
+                    <button onClick={handleTextAlignLeftButtonCkick}>
+                        <FontAwesomeIcon icon={faAlignLeft} />
+                    </button>
+                    <button onClick={handleTextAlignCenterButtonClick}>
+                        <FontAwesomeIcon icon={faAlignCenter} />
+                    </button>
+                    <button onClick={handleTextAlignRightButtonClick}>
+                        <FontAwesomeIcon icon={faAlignRight} />
+                    </button>
+                </div>
             </div>
             <SketchPicker width='150px' onChange={updateBackgroundColor} color = {rgb} css={isCursiveBackgroundToggle? sketchPickerActiveStyle: sketchPickerDefaultStyle}/>
             <div id='buttonContainer' css={buttonContainer}>

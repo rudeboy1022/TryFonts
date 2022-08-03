@@ -3,10 +3,11 @@ import {SketchPicker, ColorResult, ColorChangeHandler} from "react-color";
 import { SansSerifTexts } from './texts/sansSerifTexts';
 import { adjustButtonsStyle, buttonContainer, mq} from '../style/style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faAlignCenter, faAlignLeft, faAlignRight } from '@fortawesome/free-solid-svg-icons';
 
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { transform } from 'typescript';
 
 export const SansSerif: FC=  () => {
 
@@ -64,10 +65,26 @@ export const SansSerif: FC=  () => {
     const clientTopPx = `top: ${clientTop}px`;
     const clientRightPx = `right: ${clientRight}px`;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    //文字色のHEXの値を取得保持//////////////////////////////////////////////////////////////////////////////////////////////////
     const [textColorHex, setTextColorHex] = useState<ColorResult | undefined>();
     
+    //css形式でcolorとbackgroundColorの値を保持//////////////////////////////////////////////////////////////////////////////////
     const copyWord = `color: ${textColorHex?.hex}; \n background: ${backgroundColor?.hex};`;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const [textAlignValue, setTextAlignValue] = useState<string>("center");
+
+    const handleTextAlignLeftButtonCkick = () => {
+        setTextAlignValue("left");
+    };
+
+    const handleTextAlignCenterButtonClick = () => {
+        setTextAlignValue("center");
+    };
+
+    const handleTextAlignRightButtonClick = () => {
+        setTextAlignValue("right");
+    }
     
     //cssエリア////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const sansSerifContainerStyle = css`
@@ -127,16 +144,42 @@ export const SansSerif: FC=  () => {
         }
     `
 
+    const alignButtonsStyle = css`
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: ${clientRight}px;
+        top: ${clientTop}px;
+        button{
+            margin-top: 5%;
+            opacity: 0;
+            transition-duration: 0.3s;
+            ${mq[2]}{
+                font-size: 1.5em;
+            }
+        }
+    `
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     return(
         <div id='sansSerifContainer' css = {sansSerifContainerStyle}>
             <h2>Sans-Serif</h2>
             <div className='sansSerifBackGroundContainer' css={sansSerifBackGroundContainerStyle} ref={divRef}>
-                <SansSerifTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle={isSansSerifTextToggle} clientTopPx={clientTopPx} setTextColorHex = {setTextColorHex}/>
+                <SansSerifTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle={isSansSerifTextToggle} clientTopPx={clientTopPx} setTextColorHex = {setTextColorHex} textAlignValue = {textAlignValue}/>
                 <button onClick={()=>{navigator.clipboard.writeText(copyWord)}} css={clipboardCopyButtonStyle}>
                     <FontAwesomeIcon icon={faCopy} size="2x"/>
                 </button>
+                <div id='alignButtons' css={alignButtonsStyle}>
+                    <button onClick={handleTextAlignLeftButtonCkick}>
+                        <FontAwesomeIcon icon={faAlignLeft} />
+                    </button>
+                    <button onClick={handleTextAlignCenterButtonClick}>
+                        <FontAwesomeIcon icon={faAlignCenter} />
+                    </button>
+                    <button onClick={handleTextAlignRightButtonClick}>
+                        <FontAwesomeIcon icon={faAlignRight} />
+                    </button>
+                </div>
             </div>
             <SketchPicker width='150px' onChange={updateBackgroundColor} color = {rgb} css={isSansSerifBackgroundToggle? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
             <div id='buttonContainer' css={buttonContainer}>

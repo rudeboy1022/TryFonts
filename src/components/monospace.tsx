@@ -3,7 +3,7 @@ import {SketchPicker, ColorResult} from "react-color";
 import { MonoSpaceTexts } from './texts/monospaceTexts';
 import { adjustButtonsStyle, buttonContainer, mq} from '../style/style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faAlignCenter, faAlignLeft, faAlignRight } from '@fortawesome/free-solid-svg-icons';
 
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react"
@@ -51,6 +51,20 @@ export const MonoSpace: FC = () => {
     const [textColorHex, setTextColorHex] = useState<ColorResult | undefined>();
     
     const copyWord = `color: ${textColorHex?.hex}; \n background: ${backgroundColor?.hex};`;
+
+    const [textAlignValue, setTextAlignValue] = useState<string>("center");
+
+    const handleTextAlignLeftButtonCkick = () => {
+        setTextAlignValue("left");
+    };
+
+    const handleTextAlignCenterButtonClick = () => {
+        setTextAlignValue("center");
+    };
+
+    const handleTextAlignRightButtonClick = () => {
+        setTextAlignValue("right");
+    };
 
     const monospaceContainerStyle = css`
         width: 90%;
@@ -108,14 +122,44 @@ export const MonoSpace: FC = () => {
         display: none;
     `
 
+    const alignButtonsStyle = css`
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: ${clientRight}px;
+        top: ${clientTop}px;
+        button{
+            margin-top: 5%;
+            opacity: 0;
+            transition-duration: 0.3s;
+            ${mq[2]}{
+                font-size: 1.5em;
+            }
+        }
+    `
+
     return(
         <div id='monospaceContainer' css = {monospaceContainerStyle}>
             <h2>MonoSpace</h2>
             <div className='monospaceBackGroundContainer' css = {monospaceBackGroundContainerStyle} ref={divRef}>
-                <MonoSpaceTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle = {isMonospaceTextToggle} clientTopPx={clientTopPx} setTextColorHex={setTextColorHex}/>
+                <MonoSpaceTexts fontSize={inputFontSizeValue} fontWeight={inputFontWeightValue} toggle = {isMonospaceTextToggle} clientTopPx={clientTopPx} setTextColorHex={setTextColorHex} textAlignValue={textAlignValue}/>
                 <button onClick={()=>{navigator.clipboard.writeText(copyWord)}} css={clipboardCopyButtonStyle}>
                     <FontAwesomeIcon icon={faCopy} size="2x"/>
                 </button>
+                <button onClick={()=>{navigator.clipboard.writeText(copyWord)}} css={clipboardCopyButtonStyle}>
+                    <FontAwesomeIcon icon={faCopy} size="2x"/>
+                </button>
+                <div id='alignButtons' css={alignButtonsStyle}>
+                    <button onClick={handleTextAlignLeftButtonCkick}>
+                        <FontAwesomeIcon icon={faAlignLeft} />
+                    </button>
+                    <button onClick={handleTextAlignCenterButtonClick}>
+                        <FontAwesomeIcon icon={faAlignCenter} />
+                    </button>
+                    <button onClick={handleTextAlignRightButtonClick}>
+                        <FontAwesomeIcon icon={faAlignRight} />
+                    </button>
+                </div>
             </div>
             <SketchPicker width='150px' onChange={updateBackgroundColor} color = {rgb} css = {isMonospaceBackgroundToggle? sketchPickerActiveStyle : sketchPickerDefaultStyle}/>
             <div id='buttonContainer' css={buttonContainer}>

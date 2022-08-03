@@ -21,6 +21,7 @@ export const CursiveTexts: FC<TextsProps> = (props) => {
     const isCursiveTextActive = props.toggle;
     const clientTopPx = props.clientTopPx;
     const setTextColorHex = props.setTextColorHex;
+    const textAlignValue = props.textAlignValue;
 
     useEffect(()=>{
         if(setTextColorHex){
@@ -54,7 +55,7 @@ export const CursiveTexts: FC<TextsProps> = (props) => {
         color: ${textColor?.hex};
         font-family: cursive;
         white-space: pre-wrap;
-        text-align: center;
+        text-align: ${textAlignValue};
     `
 
     return(

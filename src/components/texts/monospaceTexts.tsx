@@ -21,6 +21,7 @@ export const MonoSpaceTexts: FC<TextsProps> = (props) => {
     const isMonospaceTextActive = props.toggle;
     const clientTopPx = props.clientTopPx;
     const setTextColorHex = props.setTextColorHex;
+    const textAlignValue = props.textAlignValue;
 
     useEffect(()=>{
         if(setTextColorHex){
@@ -53,7 +54,7 @@ export const MonoSpaceTexts: FC<TextsProps> = (props) => {
         color: ${textColor?.hex};
         font-family: monospace;
         white-space: pre-wrap;
-        text-align: center;
+        text-align: ${textAlignValue};
     `
 
     return(

@@ -30,8 +30,10 @@ export const SansSerifTexts: FC<TextsProps>=  (props) => {
     const isSansSerifActive = props.toggle;
     //backgroundの上辺の値のprops///////////////////
     const clientTopPx = props.clientTopPx;
-
+    //文字色のHEXを親要素へ返すためのsetStateActionのprops/////
     const setTextColorHex = props.setTextColorHex;
+    //文字のalignの値を受け取り////////////////////////////
+    const textAlignValue = props.textAlignValue;
 
     useEffect(()=>{
         if(setTextColorHex){
@@ -66,7 +68,7 @@ export const SansSerifTexts: FC<TextsProps>=  (props) => {
         color: ${textColor?.hex};
         font-family: sans-serif;
         white-space: pre-wrap;
-        text-align: center;
+        text-align: ${textAlignValue};
     `
     //////////////////////////////////////////////////////////////////////////////////
 
