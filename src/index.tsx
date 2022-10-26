@@ -1,7 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { App } from "./App";
 import { TextsContextsProvider } from "./Provider/TextContextsProvider";
+import { createRoot } from "react-dom/client";
 
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
@@ -12,11 +12,12 @@ const scrollbarStyle = css`
   }
 `;
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(
   <React.StrictMode>
     <TextsContextsProvider>
       <App css={scrollbarStyle} />
     </TextsContextsProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
