@@ -12,22 +12,15 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.2.0",
-<<<<<<< HEAD
-    "@types/react": "^18.0.22",
-=======
     "@types/node": "^18.11.6",
     "@types/react": "^18.0.23",
->>>>>>> 51c74faae05b4382bdcf1335d6ce3014eed3aa61
     "@types/react-dom": "^18.0.7",
     "bulma": "^0.9.4",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
     "react-router-dom": "^6.4.2",
     "react-router-hash-link": "^2.4.3",
-=======
->>>>>>> 51c74faae05b4382bdcf1335d6ce3014eed3aa61
     "react-scripts": "^5.0.1",
     "typescript": "^4.8.4",
     "web-vitals": "^3.0.4"
